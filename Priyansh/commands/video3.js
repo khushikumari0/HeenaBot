@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   config: {
-    name: "xvideo",
+    name: "xxx",
     aliases: [],
     description: "Download and send random videos from xvideos API",
     usage: "{prefix}randomxvideos [page]",
