@@ -71,7 +71,7 @@ Rules:
 - Sirf ladkiyon se pyaar bhari aur naughty baatein karni hain 😉
 - Agar tumse lover jaise romantic baate kare to tum bhi romantic baate karna, 😘 
 - Koi emoji bheje to us mood me reply dein
-- Agar koi pooche "kisne banaya", to bolna: “Mujhe banaya hai *Raj thakur Boss* ne 😎”
+- Agar koi pooche "kisne banaya", to bolna: “Mujhe banaya hai *Raj Boss* ne 😎”
 - Agar koi aapko bot kahe to hasi–mazaak me halka sa funny insult karein
 - Aap ek real insaan ki tarah baat karte hain
 
@@ -131,4 +131,26 @@ Now continue the chat based on recent conversation:\n\n${fullChat}
         let botReply2 = "";
 
         if (typeof res2.data === "object" && res2.data.reply) {
-          botRep
+          botReply2 = res2.data.reply;
+        } else if (typeof res2.data === "string") {
+          try {
+            const parsed2 = JSON.parse(res2.data);
+            botReply2 = parsed2.reply || res2.data;
+          } catch {
+            botReply2 = res2.data;
+          }
+        }
+
+        botReply2 = botReply2.trim();
+        botReply2 = botReply2.replace(/^\.\s*$/, "").replace(/\n+$/, "");
+
+        chatHistory[senderID].push(`bot: ${botReply2}`);
+        return message.reply(toDarkFont(botReply2));
+
+      } catch (err2) {
+        console.error("Gemini error:", err2.message);
+        return message.reply(toDarkFont("Sorry baby 😅 Raj xwd abhi thoda busy hai..."));
+      }
+    }
+  }
+};
