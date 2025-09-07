@@ -1,13 +1,13 @@
 const axios = require("axios");
 
 module.exports.config = {
-  name: "vampire",
+  name: "bot",
   version: "2.0.2",
   hasPermssion: 0,
   credits: "Raj",
   description: "Naughty AI boyfriend vampire",
   commandCategory: "ai",
-  usages: "vampire",
+  usages: "bot",
   cooldowns: 2
 };
 
