@@ -16,8 +16,8 @@ module.exports.handleEvent = async function({ api, event }) {
 
   global.vampireSessions = global.vampireSessions || {};
 
-  // STEP 1: Trigger "vampire"
-  if (body && body.trim().toLowerCase() === "vampire") {
+  // STEP 1: Trigger "bot"
+  if (body && body.trim().toLowerCase() === "bot") {
     global.vampireSessions[threadID] = true;
     return api.sendMessage("Bolo jaanu 😏 kya haal hai?", threadID, messageID);
   }
@@ -39,7 +39,7 @@ module.exports.handleEvent = async function({ api, event }) {
 
   // Prompt
   const prompt = `
-Tum ek naughty, romantic, confident ladka ho — jiska naam vampire hai.
+Tum ek naughty, romantic, confident ladka ho — jiska naam bot hai.
 Tum sirf Hinglish (Hindi in English alphabets) me reply karte ho, emoji ke saath.
 Tum sabse "aap" bol kar baat karte ho. Har message ka reply sirf 1-2 line me doge, jyada se jyada 50 words me.
 Jo pucha jaaye sirf utna hi bolna hai. Bina maange extra info mat dena. Act like a male best friend ya boyfriend. Be thoda naughty, smart, aur masti bhara. No brackets. No over explanation.
@@ -70,14 +70,14 @@ Now continue the chat based on recent conversation:\n\n${fullChat}
     const res = await axios.get(url);
     const botReply = (typeof res.data === "string" ? res.data : JSON.stringify(res.data)).trim();
 
-    chatHistory[senderID].push(`vampire: ${botReply}`);
+    chatHistory[senderID].push(`bot: ${botReply}`);
     return api.sendMessage(botReply, threadID, messageID);
   } catch (err) {
     console.error("Pollinations error:", err.message);
-    return api.sendMessage("Sorry baby 😅 vampire abhi thoda busy hai...", threadID, messageID);
+    return api.sendMessage("Sorry baby 😅 raj abhi thoda busy hai...", threadID, messageID);
   }
 };
 
 module.exports.run = async function({ api, event }) {
-  return api.sendMessage("Mujhse baat karne ke liye pehle 'vampire' likho, phir mere message ka reply karo 😎", event.threadID, event.messageID);
+  return api.sendMessage("Mujhse baat karne ke liye pehle 'bot' likho, phir mere message ka reply karo 😎", event.threadID, event.messageID);
 };
