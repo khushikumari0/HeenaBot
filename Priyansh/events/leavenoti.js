@@ -2,57 +2,33 @@ module.exports.config = {
 	name: "leave",
 	eventType: ["log:unsubscribe"],
 	version: "1.0.0",
-	credits: "𝙋𝙧𝙞𝙮𝙖𝙣𝙨𝙝 𝙍𝙖𝙟𝙥𝙪𝙩",
-	description: "Notify the Bot or the person leaving the group with a random gif/photo/video",
+	credits: "PREM BABU",
+	description: "left notification",
 	dependencies: {
 		"fs-extra": "",
 		"path": ""
 	}
 };
 
-module.exports.onLoad = function () {
-    const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
-    const { join } = global.nodemodule["path"];
-
-	const path = join(__dirname, "cache", "joinGif", "randomgif");
-	if (existsSync(path)) mkdirSync(path, { recursive: true });	
-
-	const path2 = join(__dirname, "cache", "joinGif", "randomgif");
-    if (!existsSync(path2)) mkdirSync(path2, { recursive: true });
-
-    return;
-}
-
 module.exports.run = async function({ api, event, Users, Threads }) {
 	if (event.logMessageData.leftParticipantFbId == api.getCurrentUserID()) return;
-	const { createReadStream, existsSync, mkdirSync, readdirSync } = global.nodemodule["fs-extra"];
+	const { createReadStream, existsSync, mkdirSync } = global.nodemodule["fs-extra"];
 	const { join } =  global.nodemodule["path"];
+  const axios = global.nodemodule["axios"];
+    const request = global.nodemodule["request"];
+    const fs = global.nodemodule["fs-extra"];
 	const { threadID } = event;
-  const moment = require("moment-timezone");
-  const time = moment.tz("Asia/Kolkata").format("DD/MM/YYYY || HH:mm:s");
-  const hours = moment.tz("Asia/Kolkata").format("HH");
 	const data = global.data.threadData.get(parseInt(threadID)) || (await Threads.getData(threadID)).data;
 	const name = global.data.userName.get(event.logMessageData.leftParticipantFbId) || await Users.getNameUser(event.logMessageData.leftParticipantFbId);
-	const type = (event.author == event.logMessageData.leftParticipantFbId) ? "leave" : "managed";
-	const path = join(__dirname, "events", "123.mp4");
-	const pathGif = join(path, `${threadID}123.mp4`);
-	var msg, formPush
-
-	if (existsSync(path)) mkdirSync(path, { recursive: true });
-
-(typeof data.customLeave == "undefined") ? msg = "[⚜️𝙲𝚑𝚊𝚕𝚊 𝚐𝚊𝚢𝚊 𝙲𝚑𝚊𝚗𝚍 𝚔𝚊𝚑𝚊 𝚊𝚊𝚜𝚖𝚊 𝚔𝚘 𝚌𝚑𝚑𝚘𝚛 𝚔𝚎🫂] \n\n 𝐍𝐚𝐦𝐞 : {name} \n 𝐑𝐞𝐚𝐬𝐨𝐧 : {type}  [⚜️]\۩ 🙏🏻\n\n💐<3😊💔 {session} || {time}" : msg = data.customLeave;
-	msg = msg.replace(/\{name}/g, name).replace(/\{type}/g, type).replace(/\{session}/g, hours <= 10 ? "𝐆𝐨𝐨𝐝 𝐌𝐨𝐫𝐧𝐢𝐧𝐠" : 
-    hours > 10 && hours <= 12 ? "𝐆𝐨𝐨𝐝 𝐀𝐟𝐭𝐞𝐫𝐧𝐨𝐨𝐧 🌹" :
-    hours > 12 && hours <= 18 ? "𝐆𝐨𝐨𝐝 𝐄𝐯𝐞𝐧𝐢𝐧𝐠" : "𝐆𝐨𝐨𝐝 𝐍𝐢𝐠𝐡𝐭").replace(/\{time}/g, time);  
-
-	const randomPath = readdirSync(join(__dirname, "cache", "joinGif", "randomgif"));
-
-	if (existsSync(pathGif)) formPush = { body: msg, attachment: createReadStream(pathGif) }
-	else if (randomPath.length != 0) {
-		const pathRandom = join(__dirname, "cache", "joinGif", "randomgif",`${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
-		formPush = { body: msg, attachment: createReadStream(pathRandom) }
-	}
-	else formPush = { body: msg }
-	
-	return api.sendMessage(formPush, threadID);
+	const type = (event.author == event.logMessageData.leftParticipantFbId) ? "खुद ही भाग गया 😐👈" : "एडमिन ने गुस्से में निकाल दिया 😐👈";
+  (typeof data.customLeave == "undefined") ? msg = "सुकर है एक ठरकी इस ग्रुप से कम हो गया 😌👈\nनाम 👉 {name}\nरीजन 👉  {type}" : msg = data.customLeave;
+	msg = msg.replace(/\{name}/g, name).replace(/\{type}/g, type);
+  
+  var link = [  
+"https://i.imgur.com/2hr28Gw.jpg",
+"https://i.imgur.com/2hr28Gw.jpg",
+"https://i.imgur.com/2hr28Gw.jpg",
+  ];
+  var callback = () => api.sendMessage({ body: msg, attachment: fs.createReadStream(__dirname + "/cache/leiamnashO.jpg")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/leiamnashO.jpg"));
+    return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname + "/cache/leiamnashO.jpg")).on("close", () => callback());
 }
