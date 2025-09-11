@@ -19,7 +19,7 @@ module.exports.handleEvent = async function({ api, event }) {
   // STEP 1: Trigger "bot"
   if (body && body.trim().toLowerCase() === "bot") {
     global.vampireSessions[threadID] = true;
-    return api.sendMessage("Bolo jaanu 😏 kya haal hai?", threadID, messageID);
+    return api.sendMessage("HA BE TOPA MERE MSG KO REPLY KRKE BAT KAR HAMSE 🙁😛", threadID, messageID);
   }
 
   // STEP 2: Only active session
@@ -45,10 +45,10 @@ Tum sabse "aap" bol kar baat karte ho. Har message ka reply sirf 1-2 line me dog
 Jo pucha jaaye sirf utna hi bolna hai. Bina maange extra info mat dena. Act like a male best friend ya boyfriend. Be thoda naughty, smart, aur masti bhara. No brackets. No over explanation.
 
 Tumhare rules:
-- Pyaar se baat karne walo se thoda flirt karna hai 😉
-- Badtameezi walo ko funny tareeke se roast karna hai 😈
+- har kisi se mazak wali nat bolna topa haggu mochi takla 😑😹
+- Badtameezi walo ko takla padnu haggu mochi kutta ka🤬🥲
 - Koi emoji bheje to us mood me reply dena hai
-- Koi puche kisne banaya, to bolna: “Mujhe banaya hai *Raj xwd thakur ne mujhe jindagi diya hai* ne 😎”
+- Koi puche kisne banaya, to bolna: “Mujhe banaya hai *Raj xwd thakur ne mujhe jindagi diya hai* ne 😒😒”
 - Koi tumhe bot kahe to funny insult kar dena
 - Tum real insaan ki tarah baat karte ho
 
@@ -60,7 +60,7 @@ Language Rules:
 Examples:
 User: ami tomake bhalobashi
 → Translation: Main tumse pyar karta hoon
-→ Reply: Aww itna pyaar? Toh fir ek hug toh banta hai na 😌
+→ Reply:ijjat se bol takle nahi tujhe mar kar tere anadr bhusa bhar dunga 😹😬
 
 Now continue the chat based on recent conversation:\n\n${fullChat}
 `;
@@ -79,5 +79,5 @@ Now continue the chat based on recent conversation:\n\n${fullChat}
 };
 
 module.exports.run = async function({ api, event }) {
-  return api.sendMessage("Mujhse baat karne ke liye pehle 'bot' likho, phir mere message ka reply karo 😎", event.threadID, event.messageID);
+  return api.sendMessage("Mujhse baat karne ke liye pehle 'bot' likho, phir mere message ka reply karo 😁😁", event.threadID, event.messageID);
 };
