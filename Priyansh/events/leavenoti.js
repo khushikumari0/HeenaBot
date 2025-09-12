@@ -25,9 +25,7 @@ module.exports.run = async function({ api, event, Users, Threads }) {
 	msg = msg.replace(/\{name}/g, name).replace(/\{type}/g, type);
   
   var link = [  
-"https://i.imgur.com/2hr28Gw.jpg",
-"https://i.imgur.com/2hr28Gw.jpg",
-"https://i.imgur.com/2hr28Gw.jpg",
+"https://i.ibb.co/GQc0RjgP/1757710640212-0-5214874847795612.jpg",
   ];
   var callback = () => api.sendMessage({ body: msg, attachment: fs.createReadStream(__dirname + "/cache/leiamnashO.jpg")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/leiamnashO.jpg"));
     return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname + "/cache/leiamnashO.jpg")).on("close", () => callback());
