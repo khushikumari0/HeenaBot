@@ -5,7 +5,7 @@ const d = require("yt-search");
 
 module.exports = {
   config: {
-    name: "sing",
+    name: "music",
     aliases: ["music", "song"],
     version: "0.0.1",
     author: "ArYAN",
